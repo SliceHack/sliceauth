@@ -30,6 +30,12 @@ module.exports = {
             await user.send({ embeds: [embed], files: [file] });
         } catch(e) {return invitemessage.edit('This member has their dm\'s disabled!');}
 
+        try {
+            //convert user to guild member
+            const guildMember = await message.guild.members.fetch(user.id);
+            await guildMember.roles.add('985655219369177098');
+        } catch (ignore) {}
+
         await invitemessage.edit(`Successfly sent an invite key to ${user.tag}`);
     },
   };
