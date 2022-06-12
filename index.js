@@ -2,7 +2,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-const fs = require('fs')
+const fs = require('fs');
+const discordbot = require('./SliceBot/client.js');
 
 //setup the app to use cookie parser and body parser
 app.use(bodyParser.json());
