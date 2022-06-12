@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { MessageAttachment, MessageEmbed } = require("discord.js");
 
 const JSONdb = require('simple-json-db');
 
@@ -19,13 +19,16 @@ module.exports = {
         db.set(invitekey, invitekey)
         //message the user
 
+
+        const file = new MessageAttachment("files/SliceHWID.jar");
+
         const embed = new MessageEmbed()
             .setColor('ORANGE')
             .setTitle('Invite Key')
             .setDescription(`You have been invited to Slice Client. Please use the following key and your Discord ID(${user.id}) in the following executable file.\n\`\`\`` + invitekey + '\`\`\`')
         try {
-            await user.send({ embeds: [embed] });
-        } catch(e) {return invitemessage.edit('This member has their dm\'s disabled!')}
+            await user.send({ embeds: [embed], files: [file] });
+        } catch(e) {return invitemessage.edit('This member has their dm\'s disabled!');}
 
         await invitemessage.edit(`Successfly sent an invite key to ${user.tag}`);
     },
