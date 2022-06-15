@@ -7,9 +7,9 @@ router.get('/:file', function(req, res, next){
     if (!file) return;
     switch (file) {
         case 'lib':
-            return res.sendFile('files/lib.zip');
+            return res.sendFile('files/lib.zip', { root: process.cwd });
         case 'jar':
-            return res.sendFile(`files/jar.zip`);
+            return res.sendFile(`files/jar.zip`, { root: process.cwd });
     }
     return res.sendStatus(404);
 
