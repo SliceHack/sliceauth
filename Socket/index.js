@@ -21,7 +21,8 @@ module.exports = (server) => {
                 discordName,
             })
             usernames.push(`${username}:${discordName}`);
-            socket.emit("usernameSet", usernames);
+            sendSockets("usernameSet", usernames)
+            sendSockets("ircConnection", discordName, username);
         })
 
         socket.on("message", (...args) => {
@@ -35,13 +36,14 @@ module.exports = (server) => {
                 socket,
                 discordName
             }), 1);
-            socket.emit("usernameRemove", username);
+            sendSockets("usernameRemove", username);
+            sendSockets("ircDisconnection", discordName, username);
         })
 
         socket.on("setUsername", (...args) => {
             username = args[0];
             usernames.push(`${username}:${discordName}`);
-            socket.emit("usernameSet", usernames);
+            sendSockets("usernameSet", usernames);
         })
     });
 }
