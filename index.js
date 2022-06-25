@@ -1,9 +1,12 @@
 //create a default express app with cookie parser and body parser
 const express = require('express');
 const bodyParser = require('body-parser');
+const http = require('node:http');
 const app = express();
+const server = http.createServer(app);
 const fs = require('fs');
-const discordbot = require('./SliceBot/client.js');
+require('./SliceBot/client.js');
+require('./Socket/index.js')(server);
 
 //setup the app to use cookie parser and body parser
 app.use(bodyParser.json());
@@ -19,6 +22,6 @@ for(const file of routerFiles) {
 }
 
 //start the server
-var server = app.listen(3001, () => {
-    console.log(`Listening on port ${server.address().port}`);
+server.listen(3001, function() {
+    console.log('listening on *:' + this._connectionKey.substring(this._connectionKey.lastIndexOf(':') + 1));
 });
