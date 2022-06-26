@@ -1,7 +1,5 @@
 const { Server } = require('socket.io');
 
-const accounts = require('accounts.json'); 
-
 module.exports = (server) => {
     const io = new Server(server);
 
