@@ -3,36 +3,34 @@ const { Server } = require('socket.io');
 module.exports = (server) => {
     const io = new Server(server);
 
-    const sockets = [];
     const usernames = [];
 
     io.on('connection', (socket) => {
         var discordName;
         var username;
+
         socket.on("connected", (...args) => {
             discordName = args[0];
             username = args[1];
-            sockets.push({
-                socket,
-                discordName,
-                username,
-            })
             usernames.push(username + ":" + discordName);
             io.emit("usernameSet", usernames)
             io.emit("ircConnection", discordName, username);
         })
 
         socket.on('setUsername', (...args) => {
-            var username = args[0];
-            var lastUsername = args[1];
+            username = args[0];
+            var lastusername = args[1];
 
-            usernames.splice(usernames.indexOf(lastUsername + ":" + discordName), 1);
+            //remove lastusername from the array of usernames if it exists and add the new username
+            if (lastusername) {
+                var index = usernames.indexOf(lastusername + ":" + discordName);
+                if (index > -1) {
+                    usernames.splice(index, 1);
+                }
+            }
             usernames.push(username + ":" + discordName);
+            io.emit("usernameSet", JSON.stringify(usernames));
         });
-
-        socket.on('onChat', (...args) => {
-            socket.emit("users", args[0], usernames);
-        })
 
         socket.on("message", (...args) => {
             var message = args[0];
@@ -46,13 +44,13 @@ module.exports = (server) => {
         })
 
         socket.on("disconnect", () => {
-            usernames.splice(usernames.indexOf(username + ":" + discordName), 1);
+            //remove username from the array of usernames
+            var index = usernames.indexOf(username + ":" + discordName);
+            if (index > -1) {
+                usernames.splice(index, 1);
+            }
             io.emit("ircDisconnection", discordName, username);
-            sockets.splice(sockets.indexOf({
-                socket,
-                discordName
-            }), 1);
-            io.emit("usernameRemove", username);
+            io.emit("usernameSet", usernames);
         })
 
         socket.on('keepAlive', () => {});
