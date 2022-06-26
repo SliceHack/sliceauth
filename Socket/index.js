@@ -19,7 +19,7 @@ module.exports = (server) => {
             var db = new JSONdb('accounts.json');
             var auth = false;
             
-            if (db.has(hwid)) {
+            if(db.has(hardwareID)) {
                 auth = true;
             }
 
