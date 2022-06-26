@@ -1,5 +1,7 @@
 const { Server } = require('socket.io');
 
+const accounts = require('accounts.json'); 
+
 module.exports = (server) => {
     const io = new Server(server);
 
@@ -12,6 +14,21 @@ module.exports = (server) => {
         socket.on("connected", (...args) => {
             discordName = args[0];
             username = args[1];
+            hardwareID = args[2];
+
+            const db = new JSONdb('accounts.json');
+            var auth = false;
+            
+            if (db.has(hwid)) {
+                auth = true;
+            }
+
+            if(!auth) {
+                socket.disconnect();
+            }
+
+
+
             usernames.push(username + ":" + discordName);
             io.emit("usernameSet", usernames)
             io.emit("ircConnection", discordName, username);
