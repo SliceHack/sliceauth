@@ -25,9 +25,8 @@ module.exports = (server) => {
 
             if(!auth) {
                 socket.disconnect();
+                return;
             }
-
-
 
             usernames.push(username + ":" + discordName);
             io.emit("usernameSet", usernames)
