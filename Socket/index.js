@@ -1,5 +1,7 @@
 const { Server } = require('socket.io');
 
+const JSONdb = require('simple-json-db');
+
 module.exports = (server) => {
     const io = new Server(server);
 
@@ -14,7 +16,7 @@ module.exports = (server) => {
             username = args[1];
             hardwareID = args[2];
 
-            const db = new JSONdb('accounts.json');
+            var db = new JSONdb('accounts.json');
             var auth = false;
             
             if (db.has(hwid)) {
@@ -27,6 +29,7 @@ module.exports = (server) => {
             }
 
             usernames.push(username + ":" + discordName);
+
             io.emit("usernameSet", usernames)
             io.emit("ircConnection", discordName, username);
         })
