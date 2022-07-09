@@ -53,7 +53,28 @@ module.exports = (server) => {
             var message = args[0];
 
             if(discordName == undefined) {
-                socket.disconnect();
+                socket.on("connected", (...args) => {
+                    discordName = args[0];
+                    username = args[1];
+                    hardwareID = args[2];
+        
+                    var db = new JSONdb('accounts.json');
+                    var auth = false;
+                    
+                    if(db.has(hardwareID)) {
+                        auth = true;
+                    }
+        
+                    if(!auth) {
+                        socket.disconnect();
+                        return;
+                    }
+        
+                    usernames.push(username + ":" + discordName);
+        
+                    io.emit("usernameSet", usernames)
+                    io.emit("ircConnection", discordName, username);
+                })
                 return;
             }
 
