@@ -37,6 +37,18 @@ module.exports = (server) => {
         socket.on('setUsername', (...args) => {
             username = args[0];
             var lastusername = args[1];
+            var discordName = args[2];
+            var hardwareID = args[3];
+
+            // if the discordname is undefined loop through the usernames array and find the discordname
+            if(discordName == undefined) {
+                for(var i = 0; i < usernames.length; i++) {
+                    if(usernames[i].split(":")[0] == lastusername) {
+                        discordName = usernames[i].split(":")[1];
+                        break;
+                    }
+                }
+            }
 
             //remove lastusername from the array of usernames if it exists and add the new username
             if (lastusername) {
@@ -74,7 +86,7 @@ module.exports = (server) => {
         
                     io.emit("usernameSet", usernames)
                     io.emit("ircConnection", discordName, username);
-                })
+                });
                 return;
             }
 
