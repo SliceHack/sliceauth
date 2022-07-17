@@ -7,6 +7,7 @@ router.get('/:hwid', function(req, res, next){
     if (!hwid) {
         var response = {
             "status": "false",
+            "admin": "false"
         }
         return res.status(200).send(JSON.stringify(response));
     }
@@ -18,12 +19,13 @@ router.get('/:hwid', function(req, res, next){
 
         var response = {
             "status": "true",
-            "admin": 
+            "admin": admin
         }
         return res.status(200).send(JSON.stringify(response));
     } else {
         var response = {
             "status": "false",
+            "admin": "false"
         }
         return res.status(200).send(JSON.stringify(response));
     }
