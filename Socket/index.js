@@ -39,19 +39,6 @@ module.exports = (server) => {
             var lastusername = args[1];
             var discordName = args[2];
 
-            var und = false;
-
-            if(discordName == undefined) {
-                und = false;
-                for(var i = 0; i < usernames.length; i++) {
-                    if(usernames[i].split(":")[0] == lastusername) {
-                        discordName = usernames[i].split(":")[1];
-                        break;
-                    }
-                }
-
-            }
-
             //remove lastusername from the array of usernames if it exists and add the new username
             if (lastusername) {
                 var index = usernames.indexOf(lastusername + ":" + (!und ? discordName : undefined));
