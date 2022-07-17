@@ -15,6 +15,7 @@ router.get('/:hwid', function(req, res, next){
     if (db.has(hwid)) {
         var response = {
             "status": "true",
+            "discordID": db.get(hwid),
         }
         return res.status(200).send(JSON.stringify(response));
     } else {
