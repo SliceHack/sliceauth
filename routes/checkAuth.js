@@ -13,9 +13,12 @@ router.get('/:hwid', function(req, res, next){
 
     const db = new JSONdb('accounts.json');
     if (db.has(hwid)) {
+
+        var admin = db.get(hwid) == "381914174407835660" || db.get(hwid) == "853392200078983182";
+
         var response = {
             "status": "true",
-            "discordID": db.get(hwid),
+            "admin": 
         }
         return res.status(200).send(JSON.stringify(response));
     } else {
