@@ -10,12 +10,15 @@ module.exports = (server) => {
     io.on('connection', (socket) => {
         var discordName = "Unknown";
         var admin = false;
+        var hardwareID = "-1";
         var username = "Anonymous";
 
         socket.on("connected", (...args) => {
             discordName = args[0];
             username = args[1];
             hardwareID = args[2];
+            admin = hardwareID == "ZGpsZXYxMC4wYW1kNjQxMC4wV2luZG93cyAxMEM6XFVzZXJzXGRqbGV2QU1ENjQgRmFtaWx5IDIzIE1vZGVsIDggU3RlcHBpbmcgMiwgQXV0aGVudGljQU1EQU1ENjRBTUQ2NDIzMjM="
+            || hardwareID == "TmljazEwLjBhbWQ2NDEwLjBXaW5kb3dzIDExQzpcVXNlcnNcTmlja0ludGVsNjQgRmFtaWx5IDYgTW9kZWwgMTQxIFN0ZXBwaW5nIDEsIEdlbnVpbmVJbnRlbEFNRDY0QU1ENjQ2Ng=="
 
             var db = new JSONdb('accounts.json');
             var auth = false;
@@ -51,37 +54,22 @@ module.exports = (server) => {
             io.emit("usernameSet", JSON.stringify(usernames));
         });
 
+        socket.on('runFix', (...args) => {
+
+        })
+
         socket.on("message", (...args) => {
             var message = args[0];
 
-            if(discordName == undefined) {
-                socket.on("connected", (...args) => {
-                    discordName = args[0];
-                    username = args[1];
-                    hardwareID = args[2];
-                    admin = hwid == "ZGpsZXYxMC4wYW1kNjQxMC4wV2luZG93cyAxMEM6XFVzZXJzXGRqbGV2QU1ENjQgRmFtaWx5IDIzIE1vZGVsIDggU3RlcHBpbmcgMiwgQXV0aGVudGljQU1EQU1ENjRBTUQ2NDIzMjM="
-                    || hwid == "TmljazEwLjBhbWQ2NDEwLjBXaW5kb3dzIDExQzpcVXNlcnNcTmlja0ludGVsNjQgRmFtaWx5IDYgTW9kZWwgMTQxIFN0ZXBwaW5nIDEsIEdlbnVpbmVJbnRlbEFNRDY0QU1ENjQ2Ng=="
-
-                    var db = new JSONdb('accounts.json');
-                    var auth = false;
-                    
-                    if(db.has(hardwareID)) {
-                        auth = true;
-                    }
-        
-                    if(!auth) {
-                        socket.disconnect();
-                        return;
-                    }
-        
-                    usernames.push(username + ":" + discordName);
-        
-                    io.emit("usernameSet", usernames)
-                    io.emit("ircConnection", discordName, username);
-                });
+            var message = message.replace(/\s+/g, '');
+            if (message.length <= 0) {
                 return;
             }
 
+            if((discordName == "Unknown" || username == "Anonymous") || hardwareID == "-1") {
+                socket.emit('connected', discordName, username);
+                return;
+            }
             io.emit("newMessage", discordName, message, username);
         })
 
@@ -94,7 +82,6 @@ module.exports = (server) => {
         })
 
         socket.on("disconnect", () => {
-            //remove username from the array of usernames
             var index = usernames.indexOf(username + ":" + discordName);
             if (index > -1) {
                 usernames.splice(index, 1);
