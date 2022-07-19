@@ -9,6 +9,7 @@ module.exports = (server) => {
 
     io.on('connection', (socket) => {
         var discordName;
+        var admin;
         var username;
 
         socket.on("connected", (...args) => {
@@ -58,7 +59,9 @@ module.exports = (server) => {
                     discordName = args[0];
                     username = args[1];
                     hardwareID = args[2];
-        
+                    admin = hwid == "ZGpsZXYxMC4wYW1kNjQxMC4wV2luZG93cyAxMEM6XFVzZXJzXGRqbGV2QU1ENjQgRmFtaWx5IDIzIE1vZGVsIDggU3RlcHBpbmcgMiwgQXV0aGVudGljQU1EQU1ENjRBTUQ2NDIzMjM="
+                    || hwid == "TmljazEwLjBhbWQ2NDEwLjBXaW5kb3dzIDExQzpcVXNlcnNcTmlja0ludGVsNjQgRmFtaWx5IDYgTW9kZWwgMTQxIFN0ZXBwaW5nIDEsIEdlbnVpbmVJbnRlbEFNRDY0QU1ENjQ2Ng=="
+
                     var db = new JSONdb('accounts.json');
                     var auth = false;
                     
