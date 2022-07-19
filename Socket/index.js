@@ -8,9 +8,9 @@ module.exports = (server) => {
     const usernames = [];
 
     io.on('connection', (socket) => {
-        var discordName;
-        var admin;
-        var username;
+        var discordName = "Unknown";
+        var admin = false;
+        var username = "Anonymous";
 
         socket.on("connected", (...args) => {
             discordName = args[0];
@@ -83,6 +83,14 @@ module.exports = (server) => {
             }
 
             io.emit("newMessage", discordName, message, username);
+        })
+
+        socket.on('broadcast', (...args) => {
+            var message = args[0];
+
+            if (admin) {
+                io.emit("addMessage", message);
+            }
         })
 
         socket.on("disconnect", () => {
