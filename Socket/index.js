@@ -54,10 +54,6 @@ module.exports = (server) => {
             io.emit("usernameSet", JSON.stringify(usernames));
         });
 
-        socket.on('runFix', (...args) => {
-
-        })
-
         socket.on("message", (...args) => {
             var message = args[0];
 
