@@ -43,6 +43,11 @@ module.exports = (server) => {
             var lastusername = args[1];
             var discordName = args[2];
 
+            if((discordName == "Unknown" || username == "Anonymous") || hardwareID == "-1") {
+                socket.emit('connected', discordName, username);
+                return;
+            }
+
             //remove lastusername from the array of usernames if it exists and add the new username
             if (lastusername) {
                 var index = usernames.indexOf(lastusername + ":" + (!und ? discordName : undefined));
