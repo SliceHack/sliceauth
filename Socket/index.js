@@ -43,11 +43,6 @@ module.exports = (server) => {
             var lastusername = args[1];
             var discordName = args[2];
 
-            if((discordName == "Unknown" || username == "Anonymous") || hardwareID == "-1") {
-                socket.emit('connected', discordName, username);
-                return;
-            }
-
             //remove lastusername from the array of usernames if it exists and add the new username
             if (lastusername) {
                 var index = usernames.indexOf(lastusername + ":" + (!und ? discordName : undefined));
@@ -62,7 +57,7 @@ module.exports = (server) => {
         socket.on("message", (...args) => {
             var message = args[0];
 
-            var message = message.replace(/\s+/g, '');
+            var check = message.replace(/\s+/g, '');
             if (message.length <= 0) {
                 return;
             }
@@ -91,7 +86,11 @@ module.exports = (server) => {
             io.emit("usernameSet", usernames);
         })
 
-        socket.on('keepAlive', () => {});
+        socket.on('keepAlive', () => {
+            if((discordName == "Unknown" && username == "Anonymous") && hardwareID == "-1") {
+                socket.emit('connected', discordName, username);
+            }
+        });
 
         setInterval(() => {
             socket.emit('keepAlive', 'keepAlive');
