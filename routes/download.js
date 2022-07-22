@@ -2,10 +2,17 @@ var express = require('express');
 var router = express.Router();
 const JSONdb = require('simple-json-db');
 
-router.get('/download/:file', function(req, res, next){
+router.post('/download/:file', function(req, res){
     var file = req.params.file;
+    var hwid = req.body.hwid;
     if (!file) return;
+
+    const db = new JSONdb('accounts.json');
     
+    if(!db.has(hwid)) {
+        return res.status(200).send("You are not authorized to download this file.");
+    }
+
     switch (file) {
         case 'lib':
             return res.sendFile('files/lib.zip', { root: process.cwd() });

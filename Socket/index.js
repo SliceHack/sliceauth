@@ -58,7 +58,7 @@ module.exports = (server) => {
             var message = args[0];
 
             var check = message.replace(/\s+/g, '');
-            if (message.length <= 0) {
+            if (check.length <= 0) {
                 return;
             }
 
