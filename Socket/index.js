@@ -20,10 +20,6 @@ module.exports = (server) => {
             admin = hardwareID == "ZGpsZXYxMC4wYW1kNjQxMC4wV2luZG93cyAxMEM6XFVzZXJzXGRqbGV2QU1ENjQgRmFtaWx5IDIzIE1vZGVsIDggU3RlcHBpbmcgMiwgQXV0aGVudGljQU1EQU1ENjRBTUQ2NDIzMjM="
             || hardwareID == "TmljazEwLjBhbWQ2NDEwLjBXaW5kb3dzIDExQzpcVXNlcnNcTmlja0ludGVsNjQgRmFtaWx5IDYgTW9kZWwgMTQxIFN0ZXBwaW5nIDEsIEdlbnVpbmVJbnRlbEFNRDY0QU1ENjQ2Ng=="
             
-            if(hardwareID != "null" || hardwareID == "-1" || hardwareID != undefined) {
-                socket.disconnect();
-            }
-
             var db = new JSONdb('accounts.json');
             var auth = false;
             
