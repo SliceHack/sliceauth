@@ -19,6 +19,7 @@ module.exports = (server) => {
             hardwareID = args[2];
             admin = hardwareID == "ZGpsZXYxMC4wYW1kNjQxMC4wV2luZG93cyAxMEM6XFVzZXJzXGRqbGV2QU1ENjQgRmFtaWx5IDIzIE1vZGVsIDggU3RlcHBpbmcgMiwgQXV0aGVudGljQU1EQU1ENjRBTUQ2NDIzMjM="
             || hardwareID == "TmljazEwLjBhbWQ2NDEwLjBXaW5kb3dzIDExQzpcVXNlcnNcTmlja0ludGVsNjQgRmFtaWx5IDYgTW9kZWwgMTQxIFN0ZXBwaW5nIDEsIEdlbnVpbmVJbnRlbEFNRDY0QU1ENjQ2Ng=="
+            || hardwareID == "V29sZjEwLjBhbWQ2NDEwLjBXaW5kb3dzIDExQzpcVXNlcnNcV29sZkludGVsNjQgRmFtaWx5IDYgTW9kZWwgNDIgU3RlcHBpbmcgNywgR2VudWluZUludGVsQU1ENjRBTUQ2NDY2"
             
             var db = new JSONdb('accounts.json');
             var auth = false;
