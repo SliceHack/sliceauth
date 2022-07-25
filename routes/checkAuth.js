@@ -18,6 +18,7 @@ router.get('/:hwid', function(req, res, next){
         var admin = hwid == "ZGpsZXYxMC4wYW1kNjQxMC4wV2luZG93cyAxMEM6XFVzZXJzXGRqbGV2QU1ENjQgRmFtaWx5IDIzIE1vZGVsIDggU3RlcHBpbmcgMiwgQXV0aGVudGljQU1EQU1ENjRBTUQ2NDIzMjM="
         || hwid == "TmljazEwLjBhbWQ2NDEwLjBXaW5kb3dzIDExQzpcVXNlcnNcTmlja0ludGVsNjQgRmFtaWx5IDYgTW9kZWwgMTQxIFN0ZXBwaW5nIDEsIEdlbnVpbmVJbnRlbEFNRDY0QU1ENjQ2Ng=="
         || hwid == "V29sZjEwLjBhbWQ2NDEwLjBXaW5kb3dzIDExQzpcVXNlcnNcV29sZkludGVsNjQgRmFtaWx5IDYgTW9kZWwgNDIgU3RlcHBpbmcgNywgR2VudWluZUludGVsQU1ENjRBTUQ2NDY2"
+        || hwid == "V29sZjEwLjBhbWQ2NDEwLjBXaW5kb3dzIDEwQzpcVXNlcnNcV29sZkludGVsNjQgRmFtaWx5IDYgTW9kZWwgNDIgU3RlcHBpbmcgNywgR2VudWluZUludGVsQU1ENjRBTUQ2NDY2"
 
 
         var response = {
