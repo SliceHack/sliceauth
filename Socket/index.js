@@ -47,7 +47,7 @@ module.exports = (server) => {
 
             //remove lastusername from the array of usernames if it exists and add the new username
             if (lastusername) {
-                var index = usernames.indexOf(lastusername + ":" + (!und ? discordName : undefined));
+                var index = usernames.indexOf(lastusername + ":" + discordName);
                 if (index > -1) {
                     usernames.splice(index, 1);
                 }
