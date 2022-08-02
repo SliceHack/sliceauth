@@ -49,7 +49,7 @@ module.exports = (server) => {
             if (lastusername) {
                 var index = usernames.indexOf(lastusername + ":" + discordName);
                 if (index > -1) {
-                    usernames = usernames.splice(index, 1);
+                    usernames.splice(index, 1);
                 }
             }
             usernames.push(username + ":" + discordName);
