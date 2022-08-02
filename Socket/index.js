@@ -42,16 +42,16 @@ module.exports = (server) => {
 
         socket.on('setUsername', (...args) => {
             username = args[0];
-            // var lastusername = args[1];
+            var lastusername = args[1];
             var discordName = args[2];
 
             //remove lastusername from the array of usernames if it exists and add the new username
-            // if (lastusername) {
-            //     var index = usernames.indexOf(lastusername + ":" + discordName);
-            //     if (index > -1) {
-            //         usernames.splice(index, 1);
-            //     }
-            // }
+            if (lastusername) {
+                var index = usernames.indexOf(lastusername + ":" + discordName);
+                if (index > -1) {
+                    usernames = usernames.splice(index, 1);
+                }
+            }
             usernames.push(username + ":" + discordName);
             io.emit("usernameSet", JSON.stringify(usernames));
         });
