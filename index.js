@@ -5,12 +5,14 @@ const http = require('node:http');
 const app = express();
 const server = http.createServer(app);
 const fs = require('fs');
-require('./SliceBot/client.js');
+require('./SliceBot/client.js')(app);
 require('./Socket/index.js')(server);
 
 //setup the app to use cookie parser and body parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(express.static('public'))
 
 //setup router
 var routerFiles = fs.readdirSync('./routes').filter(file => file.endsWith('.js'));

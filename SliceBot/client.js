@@ -5,7 +5,11 @@ const { token } = require('./settings.json')
 const event = require('./eventHandler.js')
 const command = require('./commandHandler.js')
 
-command(client, Collection)
-event(client)
+module.exports = (app) => {
+    command(client, Collection)
+    event(client)
+    
+    require('../CapeServer/index.js')(app, client);
 
-client.login(token);
+    client.login(token);
+};
