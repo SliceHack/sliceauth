@@ -7,7 +7,7 @@ module.exports = {
     async execute(client, message, args) {
         //check if user has the role with id 985380805310292018
         const member = message.member;
-        if (!member.roles.cache.has('985380805310292018')) return message.reply('You do not have the required role to use this command!');
+        // if (!member.roles.cache.has('985380805310292018')) return message.reply('You do not have the required role to use this command!');
         //check if the message has a mention
         if (!message.mentions.users.first()) return message.reply('Please mention a user to invite them to the client!');
         //get the user

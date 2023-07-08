@@ -4,12 +4,12 @@ const JSONdb = require('simple-json-db');
 
 router.post('/download/:file', function(req, res){
     var file = req.params.file;
-    var hwid = req.body.hwid;
+    var id = req.body.id;
     if (!file) return;
 
     const db = new JSONdb('accounts.json');
     
-    if(!db.has(hwid)) {
+    if(!db.has(id)) {
         return res.status(200).send("You are not authorized to download this file.");
     }
 

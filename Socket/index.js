@@ -10,21 +10,19 @@ module.exports = (server) => {
     io.on('connection', (socket) => {
         var discordName = "Unknown", discordId = 0;
         var admin = false;
-        var hardwareID = "-1";
         var username = "Anonymous";
 
         socket.on("connected", (...args) => {
             discordName = args[0];
             username = args[1];
-            hardwareID = args[2];
             discordId = args[3];
-            admin = hardwareID == "ZGpsZXYxMC4wYW1kNjQxMC4wV2luZG93cyAxMEM6XFVzZXJzXGRqbGV2QU1ENjQgRmFtaWx5IDIzIE1vZGVsIDggU3RlcHBpbmcgMiwgQXV0aGVudGljQU1EQU1ENjRBTUQ2NDIzMjM="
-            || hardwareID == "TmljazEwLjBhbWQ2NDEwLjBXaW5kb3dzIDExQzpcVXNlcnNcTmlja0ludGVsNjQgRmFtaWx5IDYgTW9kZWwgMTQxIFN0ZXBwaW5nIDEsIEdlbnVpbmVJbnRlbEFNRDY0QU1ENjQ2Ng==";
+            admin = discordId == 853392200078983182
+            || discordId == 381914174407835660;
             
             var db = new JSONdb('accounts.json');
             var auth = false;
             
-            if(db.has(hardwareID)) {
+            if(db.has(discordId)) {
                 auth = true;
             }
 
@@ -64,7 +62,7 @@ module.exports = (server) => {
                 return;
             }
 
-            if((discordName == "Unknown" || username == "Anonymous") || hardwareID == "-1") {
+            if((discordName == "Unknown" || username == "Anonymous") || discordId == 0) {
                 socket.emit('connected', discordName, username);
                 return;
             }
